@@ -1,13 +1,13 @@
 # OCDNet
 Obsessive Convolutional Desne Net
 
-## Created by Steve Ive
+Created by Steve Ive
 
 ---
 
 OCDNet is generated for large scale images classification, which shows about 20% better performaces than State-Of-Art Models 2021(VGG, Resnet... etc)
 
-OCDNet uses parataxis CNN architecture, which is the Convolution Layer layed parallelly like as a node of Linear Layer.
+OCDNet uses parataxis CNN architecture, which the Convolution Layers are layed parallelly like as a node of Linear Layer.
 
 ---
 
@@ -16,6 +16,10 @@ OCDNet uses parataxis CNN architecture, which is the Convolution Layer layed par
 ---
 
 ### Arxiv
+
+---
+
+## How to use OCDNet
 
 ---
 
@@ -37,6 +41,6 @@ stanford-car/
 
 ---
 
-#### Requirements
+### Requirements
 
 ```pip install -r requirements.txt```
