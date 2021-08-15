@@ -1,6 +1,8 @@
 # OCDNet
 Obsessive Convolutional Desne Net
 
+- Steve Ive
+
 
 OCDNet: Obsessive Convolutional Desne Net
 
