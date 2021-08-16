@@ -8,56 +8,78 @@ class OCDNet(nn.Module):
         super(OCDNet, self).__init__()
 
         self.ocds = {}
+        self.ids = []
+        self.convs = []
 
+        self.identitier(cfg)
         self.ocd_emerge(cfg)
 
+
         self.ocd0 = self.ocds[0][0]
-        self.ocd1 = self.ocds[1][0]
-        self.ocd2 = self.ocds[1][1]
-        self.ocd3 = self.ocds[2][0]
-        self.ocd4 = self.ocds[2][1]
-        self.ocd5 = self.ocds[2][2]
-        self.ocd6 = self.ocds[3][0]
-        self.ocd7 = self.ocds[3][1]
-        self.ocd8 = self.ocds[3][2]
-        self.ocd9 = self.ocds[4][0]
-        self.ocd10 = self.ocds[4][1]
-        self.ocd11 = self.ocds[5][0]
-        # self.ocd12 = self.ocds[5][2]
-        # self.ocd13 = self.ocds[5][0]
-        # self.ocd14 = self.ocds[5][1]
-        # self.ocd15 = self.ocds[6][0]
-        # self.ocd16 = self.ocds[6][1]
-        # self.ocd17 = self.ocds[7][0]
+        self.ocd1 = self.ocds[0][1]
+        self.ocd2 = self.ocds[0][2]
+        self.ocd3 = self.ocds[0][3]
+        self.ocd4 = self.ocds[0][4]
+        self.ocd5 = self.ocds[1][0]
+        self.ocd6 = self.ocds[1][1]
+        self.ocd7 = self.ocds[1][2]
+        self.ocd8 = self.ocds[1][3]
+        self.ocd9 = self.ocds[1][4]
+        self.ocd10 = self.ocds[2][0]
+        self.ocd11 = self.ocds[2][1]
+        self.ocd12 = self.ocds[2][2]
+        self.ocd13 = self.ocds[3][0]
+        self.ocd14 = self.ocds[3][1]
+        self.ocd15 = self.ocds[3][2]
+        self.ocd16 = self.ocds[4][0]
+        self.ocd17 = self.ocds[4][1]
+        self.ocd18 = self.ocds[4][2]
+        self.ocd19 = self.ocds[5][0]
+        self.ocd20 = self.ocds[5][1]
+        self.ocd21 = self.ocds[6][0]
+        self.ocd22 = self.ocds[6][1]
+        self.ocd23 = self.ocds[7][0]
+        
+        self.id0 = self.ids[0]
+        self.id1 = self.ids[1]
+        self.id2 = self.ids[2]
+        self.id3 = self.ids[3]
+        self.id4 = self.ids[4]
+        self.id5 = self.ids[5]
+
+        self.conv0 = self.convs[0]
+        self.conv1 = self.convs[1]
+        self.conv2 = self.convs[2]
+        self.conv3 = self.convs[3]
+        self.conv4 = self.convs[4]
+        self.conv5 = self.convs[5]
+
 
 
 
         
         self.classfier = nn.Sequential(
-            nn.Linear(2 * 2 * 64, 2048),
+            nn.Linear(3 * 3 * 64, 4096),
             nn.ReLU(),
-            nn.Linear(2048, 2048),
+            nn.Linear(4096, 4096),
             nn.ReLU(),
-            nn.Linear(2048, 2048),
+            nn.Linear(4096, 4096),
             nn.ReLU(),
-            nn.Linear(2048, num_classes)
+            nn.Linear(4096, num_classes)
         )
 
         if init_weights:
             self._initialize_weights()
 
 
-    def ocd_emerge(self, cfg):
-        for i, kernels in enumerate(cfg['kernel'].values()):
-            self.ocds[i] = []
-            for kernel in kernels:
-                in_channel = cfg['channel'][i - 1] if i != 0 else 3
-                self.ocds[i].append(OCD(kernel, 2, in_channel, cfg['channel'][i]))
-
-
-
     def forward(self, x: torch.Tensor) -> torch.Tensor: 
         return self.sequencing(x)
+
+    
+    def identitier(self, cfg):
+        for i in range(0, 6):
+            self.ids += [nn.Parameter(torch.FloatTensor(1), requires_grad=True)]
+            self.convs += [nn.Conv2d(cfg['channel'][i], cfg['channel'][i+2], 1)]
 
     
     def sequencing(self, x):
@@ -66,20 +88,53 @@ class OCDNet(nn.Module):
 
         #get each layer
         for i, ocds in enumerate(self.ocds.values()):
+            
+            #Initialize
             new_outs[i] = []
-            #ocds for each layer
+
+            #Set first Tensor as List to Adopt OCD
             if i == 0:
                 outs = [outs]
-            for ocd in ocds:
+
+
+
+            #Slide all OCDS
+            for ocd in ocds:                    
                 x = ocd(outs)
+
+                #Identitier
+                if i > 1:
+                    _out = 0
+                    for out in new_outs[i - 2]:
+                        id = nn.AdaptiveAvgPool2d((x.size(-1), x.size(-1)))(out)
+                        _out += id
+                    #print(x.shape, x.size(-1), id.shape, self.convs[i - 2])
+                    #id = _out * self.ids[i -2]
+                    id = self.convs[i - 2](id)
+                    x = x + id
+
                 new_outs[i].append(x)
                     
             outs = new_outs[i]
 
-        print('final out', len(outs), outs[0].shape)
-        out = outs[0].view(-1, 2 * 2* 64)
+        #print('final out', len(outs), outs[0].shape)
+        out = outs[0].view(-1, 3 * 3 * 64)
         x = self.classfier(out)
         return x
+
+
+    def ocd_emerge(self, cfg):
+        for i, kernels in enumerate(cfg['kernel'].values()):
+            self.ocds[i] = []
+
+            in_batch = 1 if i == 0 else len(cfg['kernel'][i - 1])
+
+            for kernel in kernels:
+                in_channel = cfg['channel'][i - 1] if i != 0 else 3
+                #if i == 0 or i == 1 or i == 3 or i == 5 or i == 7:
+                #    self.ocds[i].append(OCD_Strider(kernel, 2, in_channel, cfg['channel'][i]))
+                #else:
+                self.ocds[i].append(OCD_Strider_Batcher(kernel, 2, in_channel, cfg['channel'][i], in_batch))
             
 
     def _initialize_weights(self) -> None:
@@ -97,66 +152,68 @@ class OCDNet(nn.Module):
 
 
 
+class OCD_Strider_Batcher(nn.Module):
+    def __init__(self, kernel, stride, in_channel, out_channel, in_batch):
+        super(OCD_Strider_Batcher, self).__init__()
 
-class OCD_Strider(nn.Module):
-    def __init__(self, kernel, stride, in_channel, out_channel):
-        super(OCD_Strider, self).__init__()
-
-        self.conv = nn.Conv2d(in_channel, out_channel, kernel, stride = stride , padding = 1)
-
-    def forward(self, x):
-        outs = x
-        new_outs = []
-        for out in outs:
-            out = self.conv(out)
-            new_outs.append(out)
-        return new_outs
-
-
-class OCD_Bottle(nn.Module):
-    def __init__(self, out_channel):
-        super(OCD_Bottle, self).__init__()
+        self.in_batch = in_batch
+        self.out_channel = out_channel
         
+        self.conv = nn.Conv2d(in_channel, out_channel, kernel, stride, padding = 1)
         self.sq = nn.Sequential(
             nn.BatchNorm2d(out_channel),
             nn.ReLU(),
         )
-        
+        self.w1 = nn.Parameter(torch.FloatTensor(1), requires_grad=True)
+
     def forward(self, x):
         outs = x
-        new_outs = []
         mins = []
-
-        for i in outs:
-            a = i.size(-1)
-            mins.append(a)
+        new_outs = []
+        for out in outs:            
+            out = self.conv(out)
+            new_outs.append(out)
+            _min = out.size(-1)
+            mins.append(_min)
         min_size = min(mins)
 
-        for out in outs:
+        _outs = 0
+        for out in new_outs:
             out = nn.AdaptiveAvgPool2d((min_size, min_size))(out)
-            out = self.sq(out)
-            new_outs.append(out)
-        
-        new_out = 0
-        for l in new_outs:
-            new_out += l
-        return new_out
+            _outs+= out
 
-        
+        #_outs = _outs * self.w1
+        _outs = self.sq(_outs)
+        return _outs
 
-class OCD(nn.Module):
+
+class OCD_Strider(nn.Module):
     def __init__(self, kernel, stride, in_channel, out_channel):
-        super(OCD, self).__init__()
+        super(OCD_Strider, self).__init__()
+        
+        self.w1 = nn.Parameter(torch.FloatTensor(1), requires_grad=True)
 
-        self.OCD_Strider = OCD_Strider(kernel, stride, in_channel, out_channel)
-        self.OCD_Bottle = OCD_Bottle(out_channel)
+        self.conv = nn.Conv2d(in_channel, out_channel, kernel, stride, padding = 1)
+        self.out_channel = out_channel
 
     def forward(self, x):
-        return nn.Sequential(
-            self.OCD_Strider,
-            self.OCD_Bottle
-        )(x)
+        outs = x
+        mins = []
+        new_outs = []
+        for out in outs:            
+            out = self.conv(out)
+            new_outs.append(out)
 
+            _min = out.size(-1)
+            mins.append(_min)
+        min_size = min(mins)
+        _outs = 0
+        for out in new_outs:
+            out = nn.AdaptiveAvgPool2d((min_size, min_size))(out)
+            _outs+= out
+
+        #_outs = _outs * self.w1
+        return _outs
 
 
 
@@ -164,23 +221,39 @@ class OCD(nn.Module):
 cfg = {
     'advanced': {
         'kernel': {
-            0: [3],
-            1: [5, 3],
-            2: [9, 7, 5],
-            3: [9, 7, 5],
-            4: [5, 3],
-            5: [3],
+            0: [7, 5, 3, 2, 1],
+            1: [3, 2, 2, 2, 1],
+            2: [2, 2, 2],
+            3: [2, 2, 2],
+            4: [2, 2, 2],
+            5: [1, 1],
+            6: [1 ,1],
+            7: [1]
         },
         'channel': {
             0: 64,
-            1: 128,
-            2: 512,
-            3: 512,
-            4: 128,
-            5: 64,
+            1: 64,
+            2: 128,
+            3: 256,
+            4: 512,
+            5: 256,
+            6: 128,
+            7: 64,
         },
     }
 }
 
 def OCD10(cfg = cfg['advanced'], num_classes = 1000, init_weights = True):
     return OCDNet(cfg, num_classes, init_weights)
+
+
+            #new_outs = new_outs.view(-1, self.out_channel * min_size * min_size)
+        #print(new_outs.shape)
+        #new_outs = torch.transpose(new_outs, 0, 1)
+        #print(new_outs.shape)
+        #new_outs = self.linear(new_outs)
+        #print(new_outs.shape)
+        #new_outs = torch.transpose(new_outs, 0, 1)
+        #print(new_outs.shape)
+        #new_outs = new_outs.view(-1, self.out_channel, min_size, min_size)
+        #print(new_outs.shape)
