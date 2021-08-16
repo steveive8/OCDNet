@@ -1,9 +1,8 @@
 # OCDNet
-Obsessive Convolutional Desne Net
 
 Created by Steve Ive
 
-## OCDNet - State Of Art Classification Model
+## OCDNet: Obsessive Convolutional Desne Net - State Of Art Classification Model
 
 OCDNet is generated for large scale images classification, which shows about 20% better performaces than State-Of-Art Models 2021(VGG, Resnet... etc)
 
