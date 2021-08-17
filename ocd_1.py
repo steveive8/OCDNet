@@ -44,38 +44,38 @@ class OCDNet(nn.Module):
 
         #Intermediate
 
-        self.ocd0 = self.ocds[0][0]
-        self.ocd1 = self.ocds[0][1]
-        self.ocd2 = self.ocds[0][2]
-        self.ocd3 = self.ocds[0][3]
-        self.ocd4 = self.ocds[0][4]
-        self.ocd5 = self.ocds[1][0]
-        self.ocd6 = self.ocds[1][1]
-        self.ocd7 = self.ocds[1][2]
-        self.ocd8 = self.ocds[1][3]
-        self.ocd9 = self.ocds[1][4]
-        self.ocd10 = self.ocds[2][0]
-        self.ocd11 = self.ocds[2][1]
-        self.ocd12 = self.ocds[2][2]
-        self.ocd13 = self.ocds[3][0]
-        self.ocd14 = self.ocds[3][1]
-        self.ocd15 = self.ocds[3][2]
-        self.ocd16 = self.ocds[4][0]
-        self.ocd17 = self.ocds[4][1]
-        self.ocd18 = self.ocds[4][2]
-        self.ocd19 = self.ocds[5][0]
-        self.ocd20 = self.ocds[5][1]
-        self.ocd21 = self.ocds[5][2]
-        self.ocd23 = self.ocds[5][3]
-        self.ocd24 = self.ocds[5][4]
-        self.ocd25 = self.ocds[6][0]
-        self.ocd26 = self.ocds[6][1]
-        self.ocd27 = self.ocds[6][2]
-        self.ocd28 = self.ocds[6][3]
-        self.ocd29 = self.ocds[6][4]
-        self.ocd30 = self.ocds[7][0]
-        self.ocd31 = self.ocds[7][1]
-        self.ocd32 = self.ocds[7][2]
+        # self.ocd0 = self.ocds[0][0]
+        # self.ocd1 = self.ocds[0][1]
+        # self.ocd2 = self.ocds[0][2]
+        # self.ocd3 = self.ocds[0][3]
+        # self.ocd4 = self.ocds[0][4]
+        # self.ocd5 = self.ocds[1][0]
+        # self.ocd6 = self.ocds[1][1]
+        # self.ocd7 = self.ocds[1][2]
+        # self.ocd8 = self.ocds[1][3]
+        # self.ocd9 = self.ocds[1][4]
+        # self.ocd10 = self.ocds[2][0]
+        # self.ocd11 = self.ocds[2][1]
+        # self.ocd12 = self.ocds[2][2]
+        # self.ocd13 = self.ocds[3][0]
+        # self.ocd14 = self.ocds[3][1]
+        # self.ocd15 = self.ocds[3][2]
+        # self.ocd16 = self.ocds[4][0]
+        # self.ocd17 = self.ocds[4][1]
+        # self.ocd18 = self.ocds[4][2]
+        # self.ocd19 = self.ocds[5][0]
+        # self.ocd20 = self.ocds[5][1]
+        # self.ocd21 = self.ocds[5][2]
+        # self.ocd23 = self.ocds[5][3]
+        # self.ocd24 = self.ocds[5][4]
+        # self.ocd25 = self.ocds[6][0]
+        # self.ocd26 = self.ocds[6][1]
+        # self.ocd27 = self.ocds[6][2]
+        # self.ocd28 = self.ocds[6][3]
+        # self.ocd29 = self.ocds[6][4]
+        # self.ocd30 = self.ocds[7][0]
+        # self.ocd31 = self.ocds[7][1]
+        # self.ocd32 = self.ocds[7][2]
 
         #light
 
@@ -119,15 +119,15 @@ class OCDNet(nn.Module):
         self.id1 = self.ids[1]
         self.id2 = self.ids[2]
         self.id3 = self.ids[3]
-        self.id4 = self.ids[4]
-        self.id5 = self.ids[5]
+        #self.id4 = self.ids[4]
+        #self.id5 = self.ids[5]
 
         self.conv0 = self.convs[0]
         self.conv1 = self.convs[1]
         self.conv2 = self.convs[2]
         self.conv3 = self.convs[3]
-        self.conv4 = self.convs[4]
-        self.conv5 = self.convs[5]
+        #self.conv4 = self.convs[4]
+        #self.conv5 = self.convs[5]
 
         
         self.classfier = nn.Sequential(
@@ -179,8 +179,8 @@ class OCDNet(nn.Module):
                         id = nn.AdaptiveAvgPool2d((x.size(-1), x.size(-1)))(out)
                         _out += id
                     
-                    if self.cfg['batch_expanding_gamma'] == True:
-                        id = _out * self.ids[i -2]
+                    #if self.cfg['batch_expanding_gamma'] == True:
+                    #    id = _out * self.ids[i -2]
 
                     id = self.convs[i - 2](id)
                     x = x + id
@@ -270,7 +270,7 @@ class OCD_Strider_Batcher(nn.Module):
             for index in indices:
                 _outs.append(cats[index])
             _outs = torch.stack(_outs)
-            #_outs = randoms[0]
+            _outs = randoms[0]
         else:
             for out in new_outs:
                 out = nn.AdaptiveAvgPool2d((min_size, min_size))(out)
@@ -321,7 +321,7 @@ class OCD_Strider(nn.Module):
             for index in indices:
                 _outs.append(cats[index])
             _outs = torch.stack(_outs)
-            #_outs = randoms[0]
+            _outs = randoms[0]
         else:
             for out in new_outs:
                 out = nn.AdaptiveAvgPool2d((min_size, min_size))(out)
@@ -451,11 +451,11 @@ cfg = {
         },
         'batcher': [1, 2, 3, 4, 5],
         'batch_expanding_gamma': True,
-        'random_batcher': False,
+        'random_batcher': True,
     }
 }
 
-def OCD10(cfg = cfg['intermediate'], num_classes = 1000, init_weights = True):
+def OCD10(cfg = cfg['light_2'], num_classes = 1000, init_weights = True):
     return OCDNet(cfg, num_classes, init_weights)
 
 
