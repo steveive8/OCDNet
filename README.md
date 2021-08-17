@@ -10,7 +10,7 @@ Model for large scale image classification. Uses parallel architecture that expa
 ---
 ### Architecture
 
-OCDNet uses parataxis CNN architecture, which the Convolution Layers are layed parallelly like as a node of Linear Layer. With the parallel architecture, batch is expanding as amount of ```Amount of prev layer's convolution node X Amount of current layer's convolution node```
+OCDNet uses parataxis CNN architecture, which the Convolution Layers are layed parallelly like as a node of Linear Layer. With the parallel architecture, batch is expanding as amount of **Amount(prev layer's convolution node) X Amount(current layer's convolution node)**
 
 To maximize the expanding batch's advantage and fix the batch size, OCDNet uses 3 ways.
 
