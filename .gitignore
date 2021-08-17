@@ -1,2 +1,4 @@
 models/
 stanford-car/
+cifar10/
+tests/

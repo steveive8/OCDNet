@@ -44,38 +44,38 @@ class OCDNet(nn.Module):
 
         #Intermediate
 
-        self.ocd0 = self.ocds[0][0]
-        self.ocd1 = self.ocds[0][1]
-        self.ocd2 = self.ocds[0][2]
-        self.ocd3 = self.ocds[0][3]
-        self.ocd4 = self.ocds[0][4]
-        self.ocd5 = self.ocds[1][0]
-        self.ocd6 = self.ocds[1][1]
-        self.ocd7 = self.ocds[1][2]
-        self.ocd8 = self.ocds[1][3]
-        self.ocd9 = self.ocds[1][4]
-        self.ocd10 = self.ocds[2][0]
-        self.ocd11 = self.ocds[2][1]
-        self.ocd12 = self.ocds[2][2]
-        self.ocd13 = self.ocds[3][0]
-        self.ocd14 = self.ocds[3][1]
-        self.ocd15 = self.ocds[3][2]
-        self.ocd16 = self.ocds[4][0]
-        self.ocd17 = self.ocds[4][1]
-        self.ocd18 = self.ocds[4][2]
-        self.ocd19 = self.ocds[5][0]
-        self.ocd20 = self.ocds[5][1]
-        self.ocd21 = self.ocds[5][2]
-        self.ocd23 = self.ocds[5][3]
-        self.ocd24 = self.ocds[5][4]
-        self.ocd25 = self.ocds[6][0]
-        self.ocd26 = self.ocds[6][1]
-        self.ocd27 = self.ocds[6][2]
-        self.ocd28 = self.ocds[6][3]
-        self.ocd29 = self.ocds[6][4]
-        self.ocd30 = self.ocds[7][0]
-        self.ocd31 = self.ocds[7][1]
-        self.ocd32 = self.ocds[7][2]
+        # self.ocd0 = self.ocds[0][0]
+        # self.ocd1 = self.ocds[0][1]
+        # self.ocd2 = self.ocds[0][2]
+        # self.ocd3 = self.ocds[0][3]
+        # self.ocd4 = self.ocds[0][4]
+        # self.ocd5 = self.ocds[1][0]
+        # self.ocd6 = self.ocds[1][1]
+        # self.ocd7 = self.ocds[1][2]
+        # self.ocd8 = self.ocds[1][3]
+        # self.ocd9 = self.ocds[1][4]
+        # self.ocd10 = self.ocds[2][0]
+        # self.ocd11 = self.ocds[2][1]
+        # self.ocd12 = self.ocds[2][2]
+        # self.ocd13 = self.ocds[3][0]
+        # self.ocd14 = self.ocds[3][1]
+        # self.ocd15 = self.ocds[3][2]
+        # self.ocd16 = self.ocds[4][0]
+        # self.ocd17 = self.ocds[4][1]
+        # self.ocd18 = self.ocds[4][2]
+        # self.ocd19 = self.ocds[5][0]
+        # self.ocd20 = self.ocds[5][1]
+        # self.ocd21 = self.ocds[5][2]
+        # self.ocd22 = self.ocds[5][3]
+        # self.ocd23 = self.ocds[5][4]
+        # self.ocd24 = self.ocds[6][0]
+        # self.ocd25 = self.ocds[6][1]
+        # self.ocd26 = self.ocds[6][2]
+        # self.ocd27 = self.ocds[6][3]
+        # self.ocd28 = self.ocds[6][4]
+        # self.ocd29 = self.ocds[7][0]
+        # self.ocd30 = self.ocds[7][1]
+        # self.ocd31 = self.ocds[7][2]
 
         #light
 
@@ -90,16 +90,19 @@ class OCDNet(nn.Module):
         # self.ocd8 = self.ocds[2][0]
         # self.ocd9 = self.ocds[2][1]
         # self.ocd10 = self.ocds[2][2]
-        # self.ocd14 = self.ocds[3][0]
-        # self.ocd15 = self.ocds[3][1]
-        # self.ocd16 = self.ocds[3][2]
-        # self.ocd17 = self.ocds[3][3]
-        # self.ocd18 = self.ocds[3][4]
-        # self.ocd19 = self.ocds[4][0]
-        # self.ocd20 = self.ocds[4][1]
-        # self.ocd21 = self.ocds[4][2]
+        # self.ocd11 = self.ocds[3][0]
+        # self.ocd12 = self.ocds[3][1]
+        # self.ocd13 = self.ocds[3][2]
+        # self.ocd14 = self.ocds[4][0]
+        # self.ocd15 = self.ocds[4][1]
+        # self.ocd16 = self.ocds[4][2]
+        # self.ocd17 = self.ocds[4][3]
+        # self.ocd18 = self.ocds[4][4]
+        # self.ocd19 = self.ocds[5][0]
+        # self.ocd20 = self.ocds[5][1]
+        # self.ocd21 = self.ocds[5][2]
 
-        #light2
+        #light2, 3
 
         self.ocd0 = self.ocds[0][0]
         self.ocd1 = self.ocds[1][0]
@@ -119,19 +122,19 @@ class OCDNet(nn.Module):
         self.id1 = self.ids[1]
         self.id2 = self.ids[2]
         self.id3 = self.ids[3]
-        self.id4 = self.ids[4]
-        self.id5 = self.ids[5]
+        #self.id4 = self.ids[4]
+        #self.id5 = self.ids[5]
 
         self.conv0 = self.convs[0]
         self.conv1 = self.convs[1]
         self.conv2 = self.convs[2]
         self.conv3 = self.convs[3]
-        self.conv4 = self.convs[4]
-        self.conv5 = self.convs[5]
+        #self.conv4 = self.convs[4]
+        #self.conv5 = self.convs[5]
 
         
         self.classfier = nn.Sequential(
-            nn.Linear(1 * 1 * 64, 4096),
+            nn.Linear(2 * 2 * 64, 4096),
             nn.ReLU(),
             nn.Linear(4096, 4096),
             nn.ReLU(),
@@ -190,7 +193,7 @@ class OCDNet(nn.Module):
             outs = new_outs[i]
 
         #print('final out', len(outs), outs[0].shape)
-        out = outs[0].view(-1, 1 * 1 * 64)
+        out = outs[0].view(-1, 2 * 2 * 64)
         x = self.classfier(out)
         return x
 
@@ -234,7 +237,7 @@ class OCD_Strider_Batcher(nn.Module):
         self.random_batcher = random_batcher
         if gamma == True:
             self.w1 = nn.Parameter(torch.tensor(1 / in_batch), requires_grad=True)
-            self.w2 = nn.Parameter(torch.tensor(1 / in_batch), requires_grad=True)
+            #self.w2 = nn.Parameter(torch.tensor(1 / in_batch), requires_grad=True)
 
         self.in_batch = in_batch
         self.out_channel = out_channel
@@ -244,8 +247,6 @@ class OCD_Strider_Batcher(nn.Module):
             nn.BatchNorm2d(out_channel),
             nn.ReLU(),
         )
-        self.w1 = nn.Parameter(torch.tensor(1/ in_batch), requires_grad=True)
-        self.w2 = nn.Parameter(torch.tensor(1 / in_batch), requires_grad=True)
 
     def forward(self, x):
         outs = x
@@ -277,7 +278,7 @@ class OCD_Strider_Batcher(nn.Module):
                 _outs+= out
 
             if self.gamma:
-                _outs = _outs * self.w1 * self.w2
+                _outs = _outs * self.w1# * self.w2
         _outs = self.sq(_outs)
         return _outs
 
@@ -291,7 +292,7 @@ class OCD_Strider(nn.Module):
         self.in_batch = in_batch
         if gamma == True:
             self.w1 = nn.Parameter(torch.tensor(1 / in_batch), requires_grad=True)
-            self.w2 = nn.Parameter(torch.tensor(1 / in_batch), requires_grad=True)
+            #self.w2 = nn.Parameter(torch.tensor(1 / in_batch), requires_grad=True)
 
         self.conv = nn.Conv2d(in_channel, out_channel, kernel, stride, padding = 1)
         self.out_channel = out_channel
@@ -307,8 +308,8 @@ class OCD_Strider(nn.Module):
             _min = out.size(-1)
             mins.append(_min)
         min_size = min(mins)
+
         _outs = 0
-        
         if self.random_batcher:
             randoms = []
             for out in new_outs:
@@ -328,7 +329,7 @@ class OCD_Strider(nn.Module):
                 _outs+= out
 
             if self.gamma:
-                _outs = _outs * self.w1 * self.w2
+                _outs = _outs * self.w1# * self.w2
         return _outs
 
 
@@ -383,7 +384,7 @@ cfg = {
         },
         'batcher': [0, 1, 2, 3, 4, 5, 6, 7],
         'batch_expanding_gamma': True,
-        'random_batcher': True,
+        'random_batcher': False,
     },
     'intermediate_light': {
         'kernel': {
@@ -412,23 +413,22 @@ cfg = {
     },
     'light': {
         'kernel': {
-            1: [5, 3, 2, 2, 1],
-            2: [7, 5, 3],
-            3: [9, 7, 9],
-            4: [7, 5, 3],
-            5: [3, 3, 2, 2, 1],
-            6: [1, 1, 1]
+            0: [5, 3, 2, 2, 1],
+            1: [7, 5, 3],
+            2: [9, 7, 9],
+            3: [7, 5, 3],
+            4: [3, 3, 2, 2, 1],
+            5: [1, 1, 1]
         },
         'channel': {
             0: 64,
             1: 128,
-            2: 256,
+            2: 512,
             3: 512,
-            4: 256,
-            5: 128,
-            6: 64,
+            4: 128,
+            5: 64,
         },
-        'batcher': [0, 1, 2, 3, 4, 5, 6],
+        'batcher': [1, 2, 3, 4, 5, 6],
         'batch_expanding_gamma': True,
         'random_batcher': False,
     },
@@ -452,10 +452,52 @@ cfg = {
         'batcher': [1, 2, 3, 4, 5],
         'batch_expanding_gamma': True,
         'random_batcher': False,
+    },
+    'light_3': {
+        'kernel': {
+            0: [1],
+            1: [3, 1],
+            2: [3, 2, 1],
+            3: [3, 2, 1],
+            4: [3, 1],
+            5: [1],
+        },
+        'channel': {
+            0: 64,
+            1: 128,
+            2: 512,
+            3: 512,
+            4: 128,
+            5: 64,
+        },
+        'batcher': [0, 1, 2, 3, 4, 5],
+        'batch_expanding_gamma': True,
+        'random_batcher': False,
+    },
+    'light_v': {
+        'kernel': {
+            0: [2],
+            1: [3, 2],
+            2: [5, 3, 2],
+            3: [3, 2, 1],
+            4: [3, 1],
+            5: [1],
+        },
+        'channel': {
+            0: 64,
+            1: 128,
+            2: 512,
+            3: 512,
+            4: 128,
+            5: 64,
+        },
+        'batcher': [0, 1, 2, 3, 4, 5],
+        'batch_expanding_gamma': True,
+        'random_batcher': False,
     }
 }
 
-def OCD10(cfg = cfg['intermediate'], num_classes = 1000, init_weights = True):
+def OCD10(cfg = cfg['light_v'], num_classes = 1000, init_weights = True):
     return OCDNet(cfg, num_classes, init_weights)
 
 
