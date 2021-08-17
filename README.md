@@ -5,7 +5,7 @@ Created by Steve Ive
 ## OCDNet: Obsessive Convolutional Desne Net
 ### Neural Net consisting of parallel convolutional layers with Batch Expanding.
 
-OCDNet is the model for large scale image classification, which uses parallel architecture that expanding Batches by each Convolutional Desne Layer.
+Model for large scale image classification. Uses parallel architecture that expanding Batches by each Convolutional Desne Layer.
 
 ---
 ### Architecture
