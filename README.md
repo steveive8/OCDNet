@@ -3,7 +3,7 @@
 Created by Steve Ive
 
 ## OCDNet: Obsessive Convolutional Desne Net
-### The State Of Art Classification Model
+### Classification Model using Batch Expanding
 
 OCDNet is generated for large scale images classification, which shows about 20% better performaces than State-Of-Art Models 2021(VGG, Resnet... etc)
 
