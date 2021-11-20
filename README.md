@@ -1,6 +1,6 @@
 # OCDNet
 
-Created by Steve Ive
+### Created by Steve Ive 2021
 
 ## OCDNet: Obsessive Convolutional Desne Net
 ### Neural Net consisting of parallel convolutional layers with Batch Expanding.
